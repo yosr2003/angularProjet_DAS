@@ -1,0 +1,40 @@
+<h1>{{title}}</h1>
+<h2>{{x()}}</h2>
+<div>
+    <input type="text" placeholder="taper le titre" [(ngModel)]="searchItem">
+</div>
+
+<div class="container">
+    @for(conf of search(); track conf.id){
+        @if(conf.nbPlaces > 0){
+            <section class="card" style="max-width: 320px">
+                <img src="{{conf.imageUrl}}" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h4 class="card-title">{{conf.titre | uppercase}}</h4>
+                    <p class="card-text">{{conf.category}}</p>
+                    <p>{{conf.date | date:'dd-MM-yyyy'}}</p>
+
+                    <a href="#" class="btn-solid theme-primary"
+                       (click)="addToFavourite(conf)">
+                        Add to my favorite
+                    </a>
+                </div>
+            </section>
+        }
+    }
+    @empty {
+        <p>Aucune conférence trouvée.</p>
+    }
+</div>
+
+<div>
+    <ul>
+            @for(fconf of favList(); track fconf.id){
+            <li>{{fconf.titre}}</li>
+        }
+        @empty {
+            <li>Aucune conférence dans les favoris.</li>
+        }
+    </ul>
+</div>
